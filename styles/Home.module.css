@@ -143,3 +143,8 @@
 .logo img {
   filter: invert(1);
 }
+
+.first{
+  width: 100px;
+  height: 100px;
+}
