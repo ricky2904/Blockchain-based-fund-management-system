@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const mongoURI = process.env.MONGODB_URI ?? '';
       const client = new MongoClient(mongoURI, {});
     try {
-      const { address,projectName, stageNumber, amountRequested, proofOfCompletion, verified } = req.body; 
+      const { address,projectName, stageNumber, amountRequested, proofOfCompletion,NFT, verified } = req.body; 
       // console.log(address,projectName, stageNumber, amountRequested, proofOfCompletion, verified)
     
       const mongoURI = process.env.MONGODB_URI ?? '';
@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const database = client.db('MajorProjectDatabase');
       const collection = database.collection('BuilderData');
 
-      await collection.insertOne({ address,projectName, stageNumber, amountRequested, proofOfCompletion, verified });
+      await collection.insertOne({ address,projectName, stageNumber, amountRequested, proofOfCompletion,NFT, verified });
 
       const result = {
         message: "Data saved successfully",

@@ -183,7 +183,7 @@ const Home = () => {
                   {/* <p>Proof of Completion: {item.proofOfCompletion}</p> */}
                   <p>Verified: {item.verified ? 'Yes' : 'No'}</p>
                   {!item.verified && (
-                    <button  onClick={() => toggleVerify(item)}>Review</button>
+                    <button style={{padding:'7px'}} onClick={() => toggleVerify(item)}>Review</button>
                   )}
                 </li>
               ))}
@@ -214,9 +214,10 @@ const Home = () => {
         <MediaRenderer style={{ margin: '20px' }} key={i} alt="Image" src={link} width="200px" height="200px"  />
       ))}
     </div>
+    
     <p>Verified: {itemToVerify.verified ? 'Yes' : 'No'}</p>
                   {!itemToVerify.verified && (
-                    <button  onClick={() => {verifyRequest(itemToVerify._id),setVerify(!verify)}}>Verify</button>
+                    <button style={{padding:'7px' }} onClick={() => {verifyRequest(itemToVerify._id),setVerify(!verify)}}>Verify</button>
                   )}
               <button className="close-modal" onClick={(e)=>{setVerify(!verify)}}>
                 CLOSE
