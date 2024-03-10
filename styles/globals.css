@@ -6,10 +6,13 @@ body {
   margin: 0;
   font-family: "Inter", sans-serif;
 }
+
 body.active-modal {
   overflow-y: hidden;
 }
-
+.modal{
+  overflow-y: auto!important;
+}
 a {
   color: #84309c;
   text-decoration: none;
@@ -25,30 +28,38 @@ body {
   margin: 15px;
 }
 
-.modal, .overlay {
+.modal {
   width: 100vw;
-  height: 100vh;
+  height: auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   position: fixed;
-}
-.overlay {
   background: rgba(49,49,49,0.8);
 }
 .model-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
   position: absolute;
-  top: 50%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   line-height: 1.4;
   background: black;
   padding: 14px 28px;
   border-radius: 3px;
-  max-width: max-content;
-  min-width: 300px;
+  max-width: min-content;
+  min-width: 250px;
   border-radius: 23px;
+}
+.genimg{
+  border-radius: 25px;
+}
+.submitform{
+  line-height: 1.5;
+  
 }
 .close-modal {
   position: absolute;

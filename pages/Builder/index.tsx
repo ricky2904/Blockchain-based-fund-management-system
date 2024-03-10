@@ -25,24 +25,28 @@ const Home: NextPage = () => {
   const [generatedImageFile, setGeneratedImageFile] = useState<File | null>(null);
   const [ipfsLink, setIpfsLink] = useState<string | null>(null);
   const[gen,setgen]=useState(false)
+  const[ipfsup,setipfsup]=useState(false)
 
   const failMessage = "Please install MetaMask & connect your MetaMask";
   const successMessage = "Your account has been connected";
 
-  const provider = new ethers.providers.JsonRpcProvider(
-    'https://mainnet.infura.io/v3/668405c01b4e44338647562e8b4fc608'
+  const Provider = new ethers.providers.JsonRpcProvider(
+    'https://sepolia.infura.io/v3/668405c01b4e44338647562e8b4fc608'
   );
+  
 
   const WalletConnect = async () => {
     if (!window.ethereum) return;
 
     try {
       const accounts = await window.ethereum.request({ method: "eth_accounts" });
+      
+      
 
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
         setConnect(true);
-        const balance = await provider.getBalance(currentAccount);
+        const balance = await Provider.getBalance(currentAccount);
         setBalance( ethers.utils.formatEther(balance));
       } else {
         resetState();  
@@ -100,6 +104,9 @@ const Home: NextPage = () => {
   // const [amountRequested,setAmountRequested]=useState('');
   // const [proofOfCompletion, setProofOfCompletion] = useState<string[]>([]);
   // const [verified,setVerified]=useState(Boolean);
+  
+      // console.log(contract)
+
 
   const [formData, setFormData] = useState({
     address:'',
@@ -148,6 +155,10 @@ const Home: NextPage = () => {
           "trait_type": "Amount Requested",
           "value": `${formData.amountRequested}`
         },
+        {
+          "trait_type":"Builder Address",
+          "value":`${formData.address}`
+        }
         
       ]
     };
@@ -160,6 +171,19 @@ const Home: NextPage = () => {
       // Upload metadata to IPFS
       const metadataUri = await uploadMetadata(metadata);
       console.log("Metadata IPFS link:", metadataUri);
+      if (metadataUri){
+        console.log("generating NFT with metadata:", metadataUri,"and sending to wallet addr :", currentAccount);
+
+        const etherscanURL=await mintToken(currentAccount, metadataUri);
+        if (etherscanURL) {
+          console.log("Transaction confirmed. View it on Etherscan:", etherscanURL);
+          // Proceed with other operations, if needed
+      } else {
+          console.error("Failed to mint token.");
+      }
+        
+
+      }
   
       // Now, you can proceed with other operations, such as storing the metadata URI or minting an NFT
       // ...
@@ -186,7 +210,7 @@ const Home: NextPage = () => {
       console.log(response.data); // Log response from the API route
       fetchData();
     } catch (error) {
-      console.error('Error submitting form data:', error);
+      console.error('Error submitting form data please try again:', error);
     }
     setFormData({
       address:currentAccount,
@@ -198,7 +222,635 @@ const Home: NextPage = () => {
       verified: false
     });
     setUris([])
+    setgen(false)
+    setipfsup(false)
   };
+
+  const mintToken = async (to: string, uri: string) => {
+    try {
+      const contractABI = 
+      [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "approve",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "initialOwner",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "constructor"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "ERC721IncorrectOwner",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "ERC721InsufficientApproval",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "approver",
+              "type": "address"
+            }
+          ],
+          "name": "ERC721InvalidApprover",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            }
+          ],
+          "name": "ERC721InvalidOperator",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "ERC721InvalidOwner",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+            }
+          ],
+          "name": "ERC721InvalidReceiver",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "sender",
+              "type": "address"
+            }
+          ],
+          "name": "ERC721InvalidSender",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "ERC721NonexistentToken",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "uri",
+              "type": "string"
+            }
+          ],
+          "name": "mint",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnableInvalidOwner",
+          "type": "error"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+            }
+          ],
+          "name": "OwnableUnauthorizedAccount",
+          "type": "error"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "approved",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Approval",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "approved",
+              "type": "bool"
+            }
+          ],
+          "name": "ApprovalForAll",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "_fromTokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "_toTokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "BatchMetadataUpdate",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "_tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "MetadataUpdate",
+          "type": "event"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "OwnershipTransferred",
+          "type": "event"
+        },
+        {
+          "inputs": [],
+          "name": "renounceOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "safeTransferFrom",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+            }
+          ],
+          "name": "safeTransferFrom",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "approved",
+              "type": "bool"
+            }
+          ],
+          "name": "setApprovalForAll",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "minter",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "status",
+              "type": "bool"
+            }
+          ],
+          "name": "setMinter",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Transfer",
+          "type": "event"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "from",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "transferFrom",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+            }
+          ],
+          "name": "transferOwnership",
+          "outputs": [],
+          "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "balanceOf",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "getApproved",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "operator",
+              "type": "address"
+            }
+          ],
+          "name": "isApprovedForAll",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "name",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "owner",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "ownerOf",
+          "outputs": [
+            {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+            }
+          ],
+          "name": "supportsInterface",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "symbol",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            }
+          ],
+          "name": "tokenURI",
+          "outputs": [
+            {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function"
+        }
+      ]
+      // Address of your deployed contract
+      const contractAddress = '0x90986cA1DBc86ACF77EB9703c2E383140b9a9034';
+      const provider=new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(contractAddress, contractABI, provider);
+      // let tokenId=10;
+        // Get the signer
+        
+        const signer = provider.getSigner(currentAccount);
+        console.log(signer)
+        // if(tokenId==7){
+        //   tokenId +=1
+        // }
+        // Call the mint function on the contract
+        const tx = await contract.connect(signer).mint(to, uri);
+
+        // Wait for the transaction to be mined
+        
+
+       
+        const receipt = await tx.wait();
+     
+        console.log('Token minted successfully! Transaction hash:', receipt.transactionHash);
+        // tokenId +=1;
+
+        // Construct the Etherscan URL using the transaction hash
+        const etherscanUrl = `https://sepolia.etherscan.io/tx/${receipt.transactionHash}`;
+
+        return etherscanUrl;
+    } catch (error) {
+        console.error('Error minting token:', error);
+    }
+};
+
+  
   const uploadMetadata = async (metadata: any): Promise<string> => {
     try {
       // Convert metadata object to JSON string
@@ -345,7 +997,6 @@ const Home: NextPage = () => {
         rowsetX += image.width;
       }
     });
-    
     // Convert canvas content to a Blob
     return new Promise<File | null>((resolve) => {
       canvas.toBlob((blob) => {
@@ -374,27 +1025,26 @@ const Home: NextPage = () => {
     if (generatedImageFile) {
       try {
         const ipfsUri = await upload({ data: [generatedImageFile] });
+        if(ipfsUri){
         setIpfsLink(ipfsUri[0]);
         setFormData((prevFormData) => ({
           ...prevFormData,
           NFT: ipfsUri[0], // Concatenate the new URIs
         }));
         console.log('Uploaded NFT image to IPFS:', ipfsUri[0]);
+        setipfsup(true)}
       } catch (error) {
         console.error('Error uploading to IPFS:', error);
       }
     }
   };
-
   const handleGenerateImage = async () => {
     const imageFile = await generateImage();
     if (imageFile) {
       setGeneratedImageFile(imageFile);
     }
   };
-
   return (
-    
     <div>
       <div>
       
@@ -488,16 +1138,16 @@ const Home: NextPage = () => {
        <><button  type="button" onClick={handleDownload}>Download Image</button>
        <button type="button" onClick={handleUploadToIPFS}>Upload to IPFS</button>
        <p>IPFS Link: {ipfsLink}</p>
-       </>
-}
-      
+       </>}
     </div>
-     
       </div>
       <div>
+        {ipfsup ?
+        <>
         <button type="submit">
           Submit
         </button>
+        </>:<p>Perform ALL actions to submit</p>}
       </div>
     </form>
 </div>
@@ -511,7 +1161,6 @@ const Home: NextPage = () => {
     <p>IPFS links:</p>
     <ul>
       {item.proofOfCompletion.map((link, i) => (
-
         <li key={i}>
           <a href={link} target="_blank" rel="noopener noreferrer">
             {link}
@@ -519,7 +1168,6 @@ const Home: NextPage = () => {
         </li>
       ))}
     </ul>
-   
     <div >
       {item.proofOfCompletion.map((link, i) => (
         <MediaRenderer style={{ margin: '20px' }} key={i} alt="Image" src={link} width="200px" height="200px"  />
@@ -532,21 +1180,12 @@ const Home: NextPage = () => {
     <p>Verified: {item.verified ? 'Yes' : 'No'}</p>
   </li>
 ))}
-
       </ul>
-
           </div>
         </div>
       )}
     </div>  
-    {/* <div>
-                    {uris.map((uri)=>{
-                      return(<MediaRenderer key={uri} alt="Image"
-                      src={uri} width="400px" ></MediaRenderer>
-                      )})}
-                  </div> */}
     </div>
   );
 };
-
 export default Home;
