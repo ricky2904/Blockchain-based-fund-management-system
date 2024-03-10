@@ -6,9 +6,26 @@ body {
   margin: 0;
   font-family: "Inter", sans-serif;
 }
+input[type="text"] {
+  color: white;
+   /* border: '1px solid white';
+   border-radius:'5px' ;
+    outline: 'none' ;
+    background-color:"black" ; */
+}
 
 body.active-modal {
   overflow-y: hidden;
+}
+.ul{
+  list-style-type: none;
+  display: flex;
+  gap: 25px;
+}
+.ul>li>button{
+  width: max-content+10px;
+  height: max-content+10px;
+  border-radius: 12.5%;
 }
 .modal{
   overflow-y: auto!important;
@@ -21,6 +38,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
 
 body {
   color: #e7e8e8;
@@ -43,14 +62,16 @@ body {
   grid-template-columns: 1fr 1fr;
   column-gap: 10px;
   position: absolute;
-  top: 70%;
+  /* top: 70%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
+  left: 16%;
   line-height: 1.4;
   background: black;
   padding: 14px 28px;
   border-radius: 3px;
-  max-width: min-content;
+  /* max-width: min-content; */
+  width: 1000px;
   min-width: 250px;
   border-radius: 23px;
 }

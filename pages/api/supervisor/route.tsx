@@ -5,18 +5,35 @@ import { ObjectId } from 'mongodb';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
-      const { id } = await req.body;
+      const {id,formData}=req.body;
+      // const { address,projectName, stageNumber, amountRequested, proofOfCompletion,NFT,prroofOfVerification,description,SupervisorNFT, verified } = req.body; 
 
       // console.log('Received ID:', id);
-
+      // address: '',
+      // projectName:'',
+      // stageNumber: '',
+      // amountRequested: '',
+      // proofOfCompletion:[] as string[],
+      // NFT:'',
+      // prroofOfVerification:[] as string[],
+      // description:'',
+      // SupervisorNFT:'',
+      // verified:false,
       const mongoURI = process.env.MONGODB_URI ?? '';
       const client = new MongoClient(mongoURI, {});
 
       await client.connect();
       const database = client.db('MajorProjectDatabase');
       const collection = database.collection('BuilderData');
+      const SupervisorCollection=database.collection('SupervisorData');
 
       const result = await collection.findOne({ _id: new ObjectId(id) });
+      await SupervisorCollection.insertOne(formData);
+
+      const Supervisorresult = {
+        message: "SupervisorData saved successfully",
+      };
+      res.status(201).json(Supervisorresult);
 
       if (result) {
         console.log('Object ID exists in the collection');
