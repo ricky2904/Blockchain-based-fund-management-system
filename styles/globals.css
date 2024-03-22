@@ -8,11 +8,372 @@ body {
 }
 input[type="text"] {
   color: white;
-   /* border: '1px solid white';
-   border-radius:'5px' ;
-    outline: 'none' ;
-    background-color:"black" ; */
+ 
 }
+
+.container {
+  text-align: center;
+  margin-top: 50px;
+  color: gainsboro;
+}
+
+h1 {
+  font-size: 24px;
+  /* color: #333; */
+  margin-bottom: 20px;
+}
+body {
+    background-color: black;
+    color: white; /* Set text color to white for better visibility */
+    font-family: Arial, sans-serif; /* Use a generic font for better cross-browser compatibility */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: white; /* Ensure labels are visible on black background */
+    font-weight: bold; /* Make labels bold for emphasis */
+}
+
+input[type="text"],
+input[type="file"] {
+    border: 1px solid white;
+    border-radius: 5px;
+    outline: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    width: calc(100% - 22px); /* Adjust width to accommodate padding and border */
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+
+.upload-area {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed white;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    color: white; /* Ensure text is visible on black background */
+    font-weight: bold; /* Make text bold for emphasis */
+    font-size: 16px; /* Increase font size for better visibility */
+    transition: border-color 0.3s; /* Add transition effect for better interaction */
+}
+
+.upload-area:hover {
+    border-color: #007bff; /* Change border color on hover */
+}
+
+canvas {
+  width: 200px !important;
+  height: 200px !important;
+  
+}
+
+.btn-generate,
+.btn-submit {
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-generate:hover,
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    background-color: #333;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+}
+
+.card p {
+    margin-bottom: 10px;
+}
+nav {
+  border-radius: 7.55px;
+  background-color: #333;
+  padding: 10px;
+}
+
+.ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.nav-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.nav-button span {
+  margin-left: 5px;
+}
+.header {
+  border: 1px solid white; /* Set border with solid white color */
+  box-shadow: 2px  2px  5px rgb(255, 255, 255); /* Add shadow effect */
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.header-title {
+  font-size: 24px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.header-account {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.header-info {
+  color: white;
+  margin-bottom: 5px;
+}
+.header-balance{
+  color:#007bff;
+  font-weight: bold;
+}
+.nav-button svg {
+  fill: currentColor;
+}
+
+.connect-button {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.connect-button:hover {
+  background-color: #0056b3;
+}
+
+.submitted-requests {
+  margin-top: 40px;
+  background-color: #333; /* Light gray background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+}
+
+.submitted-requests h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.project-name {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.review-button {
+  background-color: #007bff; /* Blue background color */
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.review-button span {
+  margin-left: 5px;
+}
+
+.review-button svg {
+  fill: white;
+}
+
+.verified-yes {
+  background-color: #28a745; /* Bright green background color */
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-top: 5px;
+}
+/* 
+.li-border {
+  border-bottom: 1px solid #ccc; /* Inline border for <li> elements */
+
+.submitted-requests {
+  margin-top: 20px;
+}
+
+.submitted-requests h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.submitted-requests ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.submitted-requests li {
+  padding: 10px;
+  margin-bottom: 15px;
+  /* border: 1px solid black; */
+}
+.submitted-requestLI{
+  border: 1px solid white;
+  padding: 10px ;
+margin-top: 17px;
+border-radius: 7.5px;
+}
+.submitted-requests p {
+  margin: 5px 0;
+}
+
+.submitted-requests .ipfs-links {
+  margin-top: 10px;
+}
+
+.submitted-requests .ipfs-links li {
+  margin-top: 5px;
+}
+
+.submitted-requests .ipfs-links a {
+  display: block;
+  font-weight: bold;
+  color: #007bff; /* Blue color */
+}
+
+.submitted-requests .media {
+  margin-right: 20px;
+}
+
+.submitted-requests .media:last-child {
+  margin-right: 0;
+}
+
+.submitted-requests .image {
+  width: 200px !important; /* Fixed width for all images */
+  height: 200px !important; /* Fixed height for all images */
+  object-fit: cover ; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded border */
+  border: 1px solid white;
+}
+
+.submitted-requests .nft-container {
+  margin-top: 20px;
+}
+
+.submitted-requests .nft-container .nft-image {
+  width: 200px !important; /* Fixed width for NFT image */
+  height: 200px !important; /* Fixed height for NFT image */
+  object-fit: cover; /* Maintain aspect ratio */
+  border-radius: 10px; /* Rounded border */
+  border: 1px solid white;
+}
+
+.verified-yes {
+  background-color: #28a745; /* Green color */
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.verified-no {
+  background-color: #dc3545; /* Red color */
+  color: white;
+  padding: 3px 8px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.submitted-requests {
+  margin-top: 20px;
+}
+
+.submitted-requests ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.submitted-requests li {
+  margin-bottom: 15px;
+}
+
+.request-detail {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.verification-status {
+  margin: 5px 0;
+  display: inline-block;
+  padding: 5px 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.verification-yes {
+  background-color: #28a745; 
+  color: white;
+}
+
+.verification-no {
+  background-color:#dc3545;
+  color: white;
+}
+
+.review-button {
+  cursor: pointer;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+.review-button:hover {
+  opacity: 0.8;
+}
+
+
+
+
+
 
 body.active-modal {
   overflow-y: hidden;
@@ -39,6 +400,58 @@ a {
   box-sizing: border-box;
 }
 
+.details-section {
+  margin-bottom: 20px; /* Add some space at the bottom */
+}
+
+.details-section h2 {
+  font-size: 24px; /* Increase font size */
+  font-weight: bold; /* Make it bold */
+}
+
+.details-section p {
+  font-size: 18px; /* Increase font size */
+  margin-bottom: 10px; /* Add some space at the bottom */
+}
+
+.details-section ul {
+  list-style-type: none; /* Remove bullet points */
+  padding-left: 0; /* Remove default padding */
+}
+
+.details-section ul li {
+  margin-bottom: 10px; /* Add some space between each link */
+}
+
+.details-section ul li a {
+  font-weight: bold; /* Make the links bold */
+  color: #007bff; /* Set the color to blue */
+  text-decoration: underline; /* Underline the links */
+}
+.details-section p a {
+  font-weight: bold; /* Make the links bold */
+  color: #007bff;/* Set the color to blue */
+  text-decoration: underline; /* Underline the links */
+}
+
+.details-section .image-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.details-section .image-container img {
+  margin: 10px; /* Add some space around each image */
+  border-radius: 10px; /* Add border radius */
+}
+.details-section .NFT-container img {
+  margin: 10px; /* Add some space around each image */
+  border-radius: 10px; /* Add border radius */
+}
+
+
+
+
+
 
 
 body {
@@ -62,15 +475,13 @@ body {
   grid-template-columns: 1fr 1fr;
   column-gap: 10px;
   position: absolute;
-  /* top: 70%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
+ 
   left: 16%;
   line-height: 1.4;
   background: black;
   padding: 14px 28px;
   border-radius: 3px;
-  /* max-width: min-content; */
+
   width: 1000px;
   min-width: 250px;
   border-radius: 23px;
@@ -87,10 +498,210 @@ body {
   top: 10px;
   right: 10px;
   padding: 5px 7px;
-}
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+background-color: transparent;}
 .btn-modal {
   padding: 10px 20px;
   display: block;
   margin: 100px auto 0;
   font-size: 18px;
+
+}
+
+.submitform form {
+  margin: 20px;
+}
+
+.submitform label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.submitform textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  resize: vertical;
+}
+
+.submitform input[type="file"] {
+  display: none;
+}
+
+.submitform input[type="file"] + p {
+  cursor: pointer;
+  text-align: center;
+}
+
+.submitform button {
+  margin-top: 10px;
+  padding: 7px;
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submitform button svg {
+  margin-right: 5px;
+}
+
+.submitform button span {
+  font-weight: bold;
+}
+
+.submitform .genimg {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.submitform .showdata-container {
+  position: absolute;
+  z-index: 2;
+  background-color: black;
+  border-radius: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  color: white;
+}
+
+.submitform .showdata-container pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.submitform .showdata-container button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+textarea {
+  border: 1px solid white;
+  border-radius: 5px;
+  outline: none;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  width: 100%;
+}
+
+textarea:focus {
+  border-color:#007bff;
+}
+/* Button styling */
+.submitform button{
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.submitform button:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Specific button styles */
+button.verify {
+  background-color: #28a745 !important; 
+  font-size: 18px;
+  font-weight: bold;/* Bright green background color */
+  color: white !important;
+  padding: 10px 15px !important;
+  border-radius: 5px !important;
+  display: inline-block !important;
+  margin-top: 5px !important;
+}
+
+/* Link styling */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+/* General styles */
+.home-container {
+  padding: 30px 50px;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2.5rem;
+  color:solid white;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.login-section {
+  text-align: center;
+}
+
+.login-heading {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.login-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.login-button a {
+  color: white !important;
+  text-decoration: none;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.members-section {
+  margin-bottom: 30px;
+}
+
+.section-heading {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.members-list {
+  display: grid;
+  justify-content: start;
+  list-style-type: none;
+  padding: 0;
+}
+
+
+
+.member-image {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }

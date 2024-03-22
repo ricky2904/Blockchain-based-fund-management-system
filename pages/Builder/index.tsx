@@ -1070,200 +1070,182 @@ const Home: NextPage = () => {
       <div>
       
       {!currentAccount && !connect ? (
-        <div>
-          <h1>WElcome Builder, Please Connect your wallet to view details</h1>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" onClick={connectWallet}>Connect Wallet</button>
+        <div className="container">
+          <h1>Welcome Builder, Please Connect your wallet to view details</h1>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline connect-button" type="button" onClick={connectWallet}>Connect Wallet</button>
         </div>
       ) : (
         
         <div>
           <nav>
-            <ul className="ul">
-              <li>
-                <button type="button" onClick={Homepage}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
-  <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
-</svg><span> Home</span></button>
-              </li>
-              <li>
-                <button type="button" onClick={SubmittedReq}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" className="bi bi-send-check" viewBox="0 0 16 16">
-  <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372zm-2.54 1.183L5.93 9.363 1.591 6.602z"/>
-  <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
-</svg><span>Req Submitted</span></button>
-              </li>
-            </ul>
-          </nav>
-          <h2>Hello Builder {currentAccount.slice(0,5)} </h2>
-          <p>Account Address: {currentAccount}</p>
-          <p>Account Balance: {balance} ETH</p>
+    <ul className="ul">
+        <li>
+            <button className="nav-button"type="button" onClick={Homepage}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+                </svg>
+                <span> Home</span>
+            </button>
+        </li>
+        <li>
+            <button className="nav-button"type="button" onClick={SubmittedReq}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="25" fill="currentColor" className="bi bi-send-check" viewBox="0 0 16 16">
+                    <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372zm-2.54 1.183L5.93 9.363 1.591 6.602z"/>
+                    <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
+                </svg>
+                <span>Req Submitted</span>
+            </button>
+        </li>
+    </ul>
+</nav>
+
+<div className="header">
+    <h2 className="header-title">Hello Builder <span className="header-account">{currentAccount.slice(0,5)}</span></h2>
+    <p className="header-info">Account Address: <span className="header-account">{currentAccount}</span></p>
+    <p className="header-info">Account Balance: <span className="header-balance">{balance}</span> ETH</p>
+</div>
+
           <div>
             {Home && 
           <div className="w-full max-w-xs">
+          <div className="card">
           <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="projectName">
-          Project Name:
-        </label><span> </span>
-        <input style={{ border: '1px solid white',borderRadius:'5px' , outline: 'none' ,backgroundColor:"black" }}
-        required
-          id="projectName"
-          type="text"
-          name="projectName"
-          placeholder=" Enter project name"
-          value={formData.projectName}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label htmlFor="stageNumber">
-          Stage No. :
-        </label>
+    <div className="form-group">
+        <label htmlFor="projectName">Project Name:</label>
         <span> </span>
-        <input style={{ border: '1px solid white',borderRadius:'5px' ,outline: 'none' ,backgroundColor:"black" }}
-        required
-          id="stageNumber"
-          type="text"
-          pattern="[0-9]*"
-          name="stageNumber"
-          placeholder="Enter stage number"
-          value={formData.stageNumber}
-          onChange={handleChange}
-        />
+        <input className="form-control" required id="projectName" type="text" name="projectName" placeholder="Enter project name" value={formData.projectName} onChange={handleChange} />
+    </div>
+    <div className="form-group">
+        <label htmlFor="stageNumber">Stage No. :</label>
+        <span> </span>
+        <input className="form-control" required id="stageNumber" type="text" pattern="[0-9]*" name="stageNumber" placeholder="Enter stage number" value={formData.stageNumber} onChange={handleChange} />
         <p>Please enter stage number</p>
-      </div>
-      <br />
-      <div>
-        <label htmlFor="amountRequested">
-          Amount Requested:
-        </label>
-        <input style={{ border: '1px solid white',borderRadius:'5px' ,outline: 'none' ,backgroundColor:"black" }}
-        required
-          id="amountRequested"
-          type="text"
-          pattern="[0-9]*"
-          name="amountRequested"
-          placeholder="Enter amount requested"
-          value={formData.amountRequested}
-          onChange={handleChange}
-        />
+    </div>
+    <br />
+    <div className="form-group">
+        <label htmlFor="amountRequested">Amount Requested:</label>
+        <input className="form-control" required id="amountRequested" type="text" pattern="[0-9]*" name="amountRequested" placeholder="Enter amount requested" value={formData.amountRequested} onChange={handleChange} />
         <p>Please enter required amount</p>
-      </div>
-      <br />
-      <div  >
-        <label htmlFor="proofOfCompletion">
-          Proof of Completion:
-        </label>
-        <div  {...getRootProps()} style={{width:'100px',height:'100px',display:'flex',alignItems:'center'}}>
-        <input {...getInputProps()} 
-        required
-          id="proofOfCompletion"
-          type="file"
-          accept="image/png, image/jpeg, .pdf"
-          name="proofOfCompletion"
-        />
-        <p style={{textAlign:'center'}}>DRAG & DROP A FILE</p></div>
-        <div >
-      {formData.proofOfCompletion.map((link, i) => (
-        <MediaRenderer style={{ margin: '20px' }} key={i} alt="Not Supported" src={link} width="200px" height="200px"  />
-      ))}
     </div>
-    <p>Please upload required documents. </p>
-    <p>REMEMBER ONCE YOU DROP A FILE, IT WILL BE UPLOADED TO IPFS AUTOMATICALLY.</p>
+    <br />
+    <div className="form-group">
+        <label htmlFor="proofOfCompletion">Proof of Completion:</label>
+        <div {...getRootProps()} className="upload-area">
+            <input {...getInputProps()} required id="proofOfCompletion" type="file" accept="image/png, image/jpeg, .pdf" name="proofOfCompletion" />
+            <p>DRAG & DROP A FILE</p>
+        </div>
+        <div>
+            {formData.proofOfCompletion.map((link, i) => (
+                <MediaRenderer style={{ margin: '20px' }} key={i} alt="Not Supported" src={link} width="200px" height="200px" />
+            ))}
+        </div>
+        <p>Please upload required documents.</p>
+        <p>REMEMBER ONCE YOU DROP A FILE, IT WILL BE UPLOADED TO IPFS AUTOMATICALLY.</p>
+        <div>
+            <input type="file" multiple onChange={handleFileChange} required />
+            <br /><br />
+            <canvas ref={canvasRef}></canvas>
+            <br /><br />
+            {!gen ?
+                <>
+                    <button type="button" className="btn-generate" onClick={handleGenerateImage}>
+                        Generate Image
+                    </button>
+                </>
+                :
+                <>
+                    <button type="button" onClick={handleDownload}>
+                        Download Image
+                    </button>
+                    <br /><br />
+                    <button type="button" onClick={handleUploadToIPFS}>
+                        Upload To IPFS
+                    </button>
+                    {ipfsLink ? <p>IPFS Link: {ipfsLink}</p> : ''}
+                </>
+            }
+        </div>
+    </div>
     <div>
-      <input type="file" multiple onChange={handleFileChange} required/>
-      <br/><br/>
-      <canvas ref={canvasRef}></canvas>
-      <br></br>
-      <br/>
-      {!gen?
-      <>
-       <button type="button" style={{borderRadius:'5px'}}onClick={handleGenerateImage}> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-card-image" viewBox="1 0 16 16">
-  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-  <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z"/>
-</svg></button> <span>Generate Image </span>
-       </>:
-       <><span> </span><button  type="button" onClick={handleDownload}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
-       <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-       <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"/>
-     </svg></button><span> Download Image</span>
-     <br />
-     <br/>
-       <button type="button" onClick={handleUploadToIPFS}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-upload" viewBox="0 0 16 16">
-  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-  <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-</svg></button><span> Upload To IPFS</span>
-
-{ipfsLink?<p>IPFS Link: {ipfsLink}</p>: ''}
-       {/* <p>IPFS Link: {ipfsLink}</p> */}
-       </>}
-    </div>
-      </div>
-      <div>
         {ipfsup ?
-        <>
-        <button type="submit">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-send" viewBox="0 0 16 16">
-  <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z"/>
-</svg><span>Submit</span>
-        </button>
-        
-        </>:<p>Perform ALL actions to submit</p>}
-      </div>
-    </form>
-    <div>
-      <br />
-      <br />
-<h2>Submitted Requests</h2>
-<ul>
-{data.map((item, index) => (
-  <li key={index}>
-   
-    <p>Project Name: {item.projectName}</p>
-    {/* <p>Stage Number: {item.stageNumber}</p>
-    <p>Amount Requested: {item.amountRequested}</p> */}
-    {item.verified?<p>Verified: {item.verified ? 'Yes' : 'No'}</p>:<button onClick={SubmittedReq}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
-</svg><span>Review</span></button>}
-    {/* <p>Verified: {item.verified ? 'Yes' : 'No'}</p>
-     <button onClick={SubmittedReq}>Review</button> */}
-  </li>
-))}
+            <>
+                <button type="submit" className="btn-submit">
+                    Submit
+                </button>
+            </>
+            :
+            <p>Perform ALL actions to submit</p>
+        }
+    </div>
+</form></div>
+
+<div className="submitted-requests">
+    <br />
+    <br />
+    <h2>Submitted Requests</h2>
+    <ul>
+        {data.map((item, index) => (
+        <li key={index} className="li-border">
+            <p className="project-name">Project Name: {item.projectName}</p>
+            {item.verified ? (
+                <p className="verified-yes">Verified: Yes</p>
+            ) : (
+                <button className="review-button" onClick={SubmittedReq}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+                    </svg>
+                    <span>Review</span>
+                </button>
+            )}
+        </li>
+        ))}
     </ul>
-          </div>
+</div>
+
+
 </div>}
 </div>
-{SubmitNav &&
-<div>
-<h3>Submitted Requests</h3>
-<ul>
-{data.map((item, index) => (
-  <li key={index}>
-    <p>Project Name: {item.projectName}</p>
-    <p>Stage Number: {item.stageNumber}</p>
-    <p>Amount Requested: {item.amountRequested}</p>
-    <p>IPFS links:</p>
-    <ul>
-      {item.proofOfCompletion.map((link, i) => (
-        <li key={i}>
-          <a href={link} target="_blank" rel="noopener noreferrer">
-            {link}
-          </a>
-        </li>
-      ))}
-    </ul>
-    <div >
-      {item.proofOfCompletion.map((link, i) => (
-        <MediaRenderer style={{ margin: '20px' }} key={i} alt="Image" src={link} width="200px" height="200px"  />
-      ))}
+{SubmitNav && (
+    <div className="submitted-requests">
+        <h3>Submitted Requests</h3>
+        <ul>
+            {data.map((item, index) => (
+              <div className="submitted-requestLI">
+                <li  key={index}>
+                    <p>Project Name: {item.projectName}</p>
+                    <p>Stage Number: {item.stageNumber}</p>
+                    <p>Amount Requested: {item.amountRequested}</p>
+                    <p>IPFS links:</p>
+                    <ul className="ipfs-links">
+                        {item.proofOfCompletion.map((link, i) => (
+                            <li key={i}>
+                                <a href={link} target="_blank" rel="noopener noreferrer">
+                                    {link}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                    <div className="media-container">
+                        {item.proofOfCompletion.map((link, i) => (
+                            <div key={i} className="media">
+                                <MediaRenderer  alt="Image" src={link} className="image" />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="nft-container">
+                        <p>NFT Image:</p>
+                        <MediaRenderer alt="NFT IMG" src={item.NFT} className="nft-image" />
+                    </div>
+                    <p className={item.verified ? "verified-yes" : "verified-no"}>
+                        Verified: {item.verified ? 'Yes' : 'No'}
+                    </p>
+                </li>
+                </div>
+            ))}
+        </ul>
     </div>
-    <div>
-      <p>NFT Image:</p>
-      <MediaRenderer alt="NFT IMG" src={item.NFT} />
-    </div>
-    <p>Verified: {item.verified ? 'Yes' : 'No'}</p>
-  </li>
-))}
-      </ul>
-          </div>}
+)}
+
         </div>
       )}
     </div>  

@@ -238,7 +238,7 @@ canvas.width = 500;
     });
   
     ctx.fillText(line, margin, y);
-    // Start drawing the title for proof of verification links
+    // Start drawing the title html proof of verification links
 const title = 'Proof OF Verification links:';
 ctx.fillText(title, 10, y+25);
 
@@ -1075,163 +1075,154 @@ formData.prroofOfVerification.forEach((link) => {
   return (
     <div>
       {!currentAccount && !connect ? (
-        <div>
-          <h1>WElcome Supervisor, Please Connect your wallet to view details</h1>
-          <button onClick={connectWallet}>Connect Wallet</button>
-        </div>
+        <div className="container">
+        <h1>Welcome Builder, Please Connect your wallet to view details</h1>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline connect-button" type="button" onClick={connectWallet}>Connect Wallet</button>
+      </div>
       ) : (
         <div>
-          <h2>Hello Supervisor {currentAccount.slice(0,5)} </h2>
-          <p>Account Address: {currentAccount}</p>
-          <p>Account Balance: {balance} ETH</p>
-          <h3>Submitted Requests</h3>
-          <div>
-            <ul>
-              {data.map((item, index) => (
-                <li key={index}>
-                  <p>Builder Addr:{item.address}</p>
-                  <p>Project Name: {item.projectName}</p>
-                  <p>Stage Number: {item.stageNumber}</p>
-                  <p>Amount Requested: {item.amountRequested}</p>
-                  {/* <p>IPFS links:</p>
-                  <ul>
-                    {item.proofOfCompletion.map((link:string, i) => (
-                    <li key={i}>
-                      <a href={link} target="_blank" rel="noopener noreferrer">
-                        {link?.substring(0, 10)}
-                      </a>
-                    </li>
-                    ))}
-                  </ul>
-                  <div >
-                    {item.proofOfCompletion.map((link, i) => (
-                    <MediaRenderer style={{ margin: '20px' }} key={i} alt="Image" src={link} width="200px" height="200px"  />
-                    ))}
-                  </div>
-                  <div>
-                    <p>NFT link:<a href={item.NFT} target="_blank" rel="noopener noreferrer">
-                        {item.NFT.substring(0,10)}
-                      </a></p>
-                    <MediaRenderer style={{ margin: '20px' }}  alt="Image" src={item.NFT} width="200px" height="200px"  />
-                  </div> */}
-                  <p>Verified: {item.verified ? 'Yes' : 'No'}</p>
-                  {!item.verified && (
-                    <button style={{padding:'7px'}} onClick={() => toggleVerify(item)}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" className="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
-                    <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
-                  </svg><span> Review</span></button>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className="header">
+    <h2 className="header-title">Hello Supervisor <span className="header-account">{currentAccount.slice(0,5)}</span></h2>
+    <p className="header-info">Account Address: <span className="header-account">{currentAccount}</span></p>
+    <p className="header-info">Account Balance: <span className="header-balance">{balance}</span> ETH</p>
+</div>
+
+<div className="submitted-requests">
+<h3>Submitted Requests</h3>
+    <ul>
+        {data.map((item, index) => (
+          <div className="submitted-requestLI">
+            <li key={index}>
+                <p className="request-detail">Builder Addr: {item.address}</p>
+                <p className="request-detail">Project Name: {item.projectName}</p>
+                <p className="request-detail">Stage Number: {item.stageNumber}</p>
+                <p className="request-detail">Amount Requested: {item.amountRequested}</p>
+                <p className={`verification-status ${item.verified ? 'verification-yes' : 'verification-no'}`}>
+                    Verified: {item.verified ? 'Yes' : 'No'}
+                </p>
+                <br/>
+                {!item.verified && (
+                    <button className="review-button" onClick={() => toggleVerify(item)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+                            <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                        </svg>
+                   
+                        <span> Review</span>
+                    </button>
+                )}
+            </li></div>
+        ))}
+    </ul>
+</div>
+
         </div>
       )}
       {verify && itemToVerify && (
         <div className="modal" onClick={(e)=>{setVerify(!verify),setshowData(!showData)}}>
             <div className="model-content" onClick={(e) => e.stopPropagation()}>
-              <div>
-              <h2>Details for Verification</h2>
-              <p>Builder Addr:{itemToVerify.address}</p>
-              <p>Project Name: {itemToVerify.projectName}</p>
-              <p>Stage Number: {itemToVerify.stageNumber}</p>
-              <p>Amount Requested: {itemToVerify.amountRequested}</p>
-              <p>IPFS links:</p>
-              <ul>
-                {itemToVerify.proofOfCompletion.map((link:string, i) => (
-                  <li key={i}>
-                    <a href={link} target="_blank" rel="noopener noreferrer">
-                      {link.substring(0,10)}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <div >
-                {itemToVerify.proofOfCompletion.map((link, i) => (
-                <MediaRenderer style={{ margin: '20px' }} key={i} alt="Image" src={link} width="200px" height="200px"  />
-                ))}
-              </div>
-               <div>
-                    <p>NFT link: <a href={itemToVerify.NFT} target="_blank" rel="noopener noreferrer">
-                        {itemToVerify.NFT.substring(0,10)}</a>
-                    </p>
-                    <MediaRenderer style={{ margin: '20px' }}  alt="Image" src={itemToVerify.NFT} width="200px" height="200px"  />
-               </div>
-               <p>Verified: {itemToVerify.verified ? 'Yes' : 'No'}</p>
-               
-              <button  style={{border:'none',backgroundColor: 'transparent'}}className="close-modal" onClick={(e)=>{setVerify(!verify)}}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" className="bi bi-x-circle" viewBox="0 0 25 25">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-</svg>
-              </button>
-              </div>
+            <div className="details-section">
+    <h2>Details for Verification</h2>
+    <p className="request-detail">Builder Addr: {itemToVerify.address}</p>
+    <p className="request-detail">Project Name: {itemToVerify.projectName}</p>
+    <p className="request-detail">Stage Number: {itemToVerify.stageNumber}</p>
+    <p className="request-detail">Amount Requested: {itemToVerify.amountRequested}</p>
+    <p className="request-detail">IPFS links:</p>
+    <ul>
+        {itemToVerify.proofOfCompletion.map((link:string, i) => (
+            <li key={i}>
+                <a href={link} target="_blank" rel="noopener noreferrer">
+                    {link.substring(0,20)}
+                </a>
+            </li>
+        ))}
+    </ul>
+    <div className="image-container">
+        {itemToVerify.proofOfCompletion.map((link, i) => (
+            <MediaRenderer key={i} alt="Image" src={link} width="200px" height="200px" />
+        ))}
+    </div>
+    <div  className="NFT-container">
+        <p className="request-detail">NFT link: <a href={itemToVerify.NFT} target="_blank" rel="noopener noreferrer">
+            {itemToVerify.NFT.substring(0,20)}
+        </a></p>
+        <MediaRenderer alt="Image" src={itemToVerify.NFT} width="200px" height="200px" />
+    </div>
+    <p className={`verification-status ${itemToVerify.verified ? 'verification-yes' : 'verification-no'}`}>
+                    Verified: {itemToVerify.verified ? 'Yes' : 'No'}
+                </p>
+    <button className="close-modal" onClick={(e)=>{setVerify(!verify)}}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" className="bi bi-x-circle" viewBox="0 0 25 25">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+        </svg>
+    </button>
+</div>
+
               <div className="submitform">
               <form>
-                <br />
-              <label htmlFor="description">Description:</label><br />
-      <textarea
-        id="description"
-        name="description"
-        rows={4}
-        cols={50}
-        value={formData.description}
-        onChange={handleDescriptionChange}
-        required
-      ></textarea><br />
-      <label htmlFor="proofOfCompletion">
-          Proof of Completion:
-        </label>
-        <div  {...getRootProps()} style={{width:'100px',height:'100px',display:'flex',alignItems:'center'}}>
-        <input {...getInputProps()}
-        required
-          id="proofOfCompletion"
-          type="file"
-          accept="image/png, image/jpeg, .pdf"
-          name="proofOfCompletion"
-        />
-        <p style={{textAlign:'center'}}>DRAG & DROP A FILE</p></div>
-        <div >
-      {formData.prroofOfVerification?.map((link, i) => (
-        <MediaRenderer style={{ margin: '20px' }} key={i} alt="Not Supported" src={link} width="200px" height="200px"  />
-      ))}
+    <br />
+    <label htmlFor="description">Description:</label><br />
+    <textarea id="description" name="description" rows={4} cols={50} value={formData.description} onChange={handleDescriptionChange} required></textarea><br />
+    <label htmlFor="proofOfCompletion">Proof of Completion:</label>
+    <div {...getRootProps()} className="upload-area">
+        <input {...getInputProps()} required id="proofOfCompletion" type="file" accept="image/png, image/jpeg, .pdf" name="proofOfCompletion" />
+        <p>DRAG & DROP A FILE</p>
     </div>
-    <p>Please upload required documents. </p>
+    <div>
+        {formData.prroofOfVerification?.map((link, i) => (
+            <MediaRenderer style={{ margin: '20px' }} key={i} alt="Not Supported" src={link} width="200px" height="200px" />
+        ))}
+    </div>
+    <p>Please upload required documents.</p>
     <p>REMEMBER ONCE YOU DROP A FILE, IT WILL BE UPLOADED TO IPFS AUTOMATICALLY.</p>
-     
-      <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
-      <br />
-      <button type="button" onClick={handleGenerateImage}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-card-image" viewBox="0 0 16 16">
-  <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-  <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z"/>
-</svg></button><span>  Generate Image</span><br />
-
-      {generatedImage && <img className="genimg" style={ {backgroundColor:'azure'}}src={generatedImage} alt="Generated Image" />}<br />
-      <button  type="button" onClick={handleUploadToIPFS}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-upload" viewBox="0 0 16 16">
-  <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
-  <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
-</svg></button><span>  Upload To IPFS</span><br />
-      {ipfsLink && (
- 
-   <p> NFT IPFS Link: <a href={ipfsLink} target="_blank" rel="noopener noreferrer">{ipfsLink.substring(0, 10)}</a></p> 
-)}<br/>
-       <button type="button" onClick={showData} ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-view-stacked" viewBox="0 0 16 16">
-  <path d="M3 0h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm0 8h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
-</svg>Show Data</button>
-<br />
-{ShowData ? (
-  <div style={{position:'absolute',zIndex:'2',backgroundColor:'black',left:'50%' , borderRadius:'20px' }}>
-    <pre>{JSON.stringify(formData, null, 2)}</pre>
-    <button  onClick={()=>setshowData(false)} style={{border:'none',backgroundColor: 'transparent',top:'10px',right:'10px',position:'absolute'}}type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" className="bi bi-x-square" viewBox="0 0 16 16">
-  <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-</svg></button>
-  </div>
+    <canvas ref={canvasRef} style={{ display: 'none' }}></canvas>
+    <br />
+    <button type="button" onClick={handleGenerateImage}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-card-image" viewBox="0 0 16 16">
+            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z"/>
+        </svg>
+        Generate Image
+    </button>
+    <br />
+    {generatedImage && <img className="genimg" style={{ backgroundColor: 'azure' }} src={generatedImage} alt="Generated Image" />}
+    <br />
+    <button type="button" onClick={handleUploadToIPFS}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-upload" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
+        </svg>
+        Upload To IPFS
+    </button>
+    {ipfsLink && (
+        <p>NFT IPFS Link: <a href={ipfsLink} target="_blank" rel="noopener noreferrer">{ipfsLink.substring(0, 10)}</a></p>
+    )}
+    <br />
+    <button type="button" onClick={showData}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-view-stacked" viewBox="0 0 16 16">
+            <path d="M3 0h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm0 8h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+        </svg>
+        Show Data
+    </button>
+    <br />
+    {ShowData ? (
+        <div style={{ position: 'absolute', zIndex: '2', backgroundColor: 'black', left: '50%', borderRadius: '20px' }}>
+            <pre>{JSON.stringify(formData, null, 2)}</pre>
+            <button onClick={() => setshowData(false)} style={{ border: 'none', backgroundColor: 'transparent', top: '10px', right: '10px', position: 'absolute' }} type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" className="bi bi-x-square" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1
+   0 0 1 1 0v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+   <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708z"/>
+</svg>
+</button>
+</div>
 ) : null}
 <br />
-       {!itemToVerify.verified && (
-                    <button type="submit" style={{padding:'7px',color:'black',width:'145px',backgroundColor:'white',border:'none' }} onClick={() => {verifyRequest(itemToVerify._id,formData),setVerify(!verify)}}>Verify</button>
-                  )}
-       </form>
+{!itemToVerify.verified && (
+<button className="verify" type="submit"onClick={() => { verifyRequest(itemToVerify._id, formData), setVerify(!verify) }}>Verify</button>
+)}
+</form>
+
               </div>
             </div>
           </div>
