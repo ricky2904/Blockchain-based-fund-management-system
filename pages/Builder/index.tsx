@@ -1210,8 +1210,8 @@ const Home: NextPage = () => {
         <h3>Submitted Requests</h3>
         <ul>
             {data.map((item, index) => (
-              <div className="submitted-requestLI">
-                <li  key={index}>
+              <div key={index} className="submitted-requestLI">
+                <li  >
                     <p>Project Name: {item.projectName}</p>
                     <p>Stage Number: {item.stageNumber}</p>
                     <p>Amount Requested: {item.amountRequested}</p>

@@ -1091,8 +1091,8 @@ formData.prroofOfVerification.forEach((link) => {
 <h3>Submitted Requests</h3>
     <ul>
         {data.map((item, index) => (
-          <div className="submitted-requestLI">
-            <li key={index}>
+          <div key={index} className="submitted-requestLI">
+            <li >
                 <p className="request-detail">Builder Addr: {item.address}</p>
                 <p className="request-detail">Project Name: {item.projectName}</p>
                 <p className="request-detail">Stage Number: {item.stageNumber}</p>
