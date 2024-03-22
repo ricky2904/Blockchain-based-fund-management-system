@@ -36,7 +36,7 @@ export default function Home(){
                 </div>
                 <div className="member">
                     {/* <img src="krishna.jpg" alt="Pavan Sree Vathsav (free load)" className="member-image" /> */}
-                    <p>Pavan Sree Vathsav (free load)</p>
+                    <p>Pavan Sree Vathsav </p>
                 </div>
             </div>
         </div>
