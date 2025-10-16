@@ -1,3 +1,6 @@
+### Final Year project
+Me and my fellow team members had completed this project with one of our college professors being assigned to us as a mentor. 
+
 ## Getting Started
 
 Create a project using this example:
